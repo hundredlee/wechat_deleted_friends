@@ -1,7 +1,13 @@
 # wechat_deleted_friends
 ###使用方法
 ```bash
-git clone https://github.com/hundredlee/wechat_deleted_friends.git
+HundredLee-MacBook-Pro:wechat_deleted_friends hundredlee$ git clone https://github.com/hundredlee/wechat_deleted_friends.git
+
+```
+
+```bash
+
+HundredLee-MacBook-Pro:wechat_deleted_friends hundredlee$ php -S "localhost:80"
 
 ```
 

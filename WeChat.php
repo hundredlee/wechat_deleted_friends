@@ -303,15 +303,15 @@ class WeChat
             array('cookies' => self::$cookie)
         );
 
-        $dictionary = json_decode($responseData->body,1);
+        $dictionary = json_decode($responseData->body, 1);
 
         self::$chatRoomName = $dictionary['ChatRoomName'];
 
-	    $memberList = $dictionary['MemberList'];
+        $memberList = $dictionary['MemberList'];
 
-        foreach ($memberList as $key => $member){
+        foreach ($memberList as $key => $member) {
 
-            if($member['MemberStatus'] == 4){
+            if ($member['MemberStatus'] == 4) {
 
                 self::$deleteList[] = $member['UserName'];
 
@@ -319,39 +319,40 @@ class WeChat
 
         }
 
-        if(strlen($dictionary['BaseResponse']['ErrMsg']) > 0){
+        if (strlen($dictionary['BaseResponse']['ErrMsg']) > 0) {
 
-            echo $dictionary['BaseResponse']['ErrMsg'].'<br/>';
+            echo $dictionary['BaseResponse']['ErrMsg'] . '<br/>';
 
         }
 
         return self::$chatRoomName;
     }
 
-    public function addMember($chatRoomName ,$usernames){
+    public function addMember($chatRoomName, $usernames)
+    {
 
-        $url = sprintf(self::$base_uri.'/webwxupdatechatroom?fun=addmember&pass_ticket=%s',self::$pass_ticket);
+        $url = sprintf(self::$base_uri . '/webwxupdatechatroom?fun=addmember&pass_ticket=%s', self::$pass_ticket);
 
         $params = array(
-            'BaseRequest'=>self::$baseRequest,
-            'ChatRoomName'=>$chatRoomName,
-            'AddMemberList'=>join(',',$usernames)
+            'BaseRequest' => self::$baseRequest,
+            'ChatRoomName' => $chatRoomName,
+            'AddMemberList' => join(',', $usernames)
         );
 
         $responseData = Requests::post($url,
             array('ContentType' => 'application/json; charset=UTF-8'),
             json_encode($params),
-            array('cookies'=>self::$cookie)
+            array('cookies' => self::$cookie)
         );
 
-        $dictionary = json_decode($responseData->body,1);
+        $dictionary = json_decode($responseData->body, 1);
 
         $memberList = $dictionary['MemberList'];
 
 
-        foreach($memberList as $key => $member){
+        foreach ($memberList as $key => $member) {
 
-            if($member['MemberStatus'] == 4){
+            if ($member['MemberStatus'] == 4) {
 
                 self::$deleteList[] = $member['UserName'];
 
@@ -359,9 +360,9 @@ class WeChat
 
         }
 
-        if(strlen($dictionary['BaseResponse']['ErrMsg']) > 0){
+        if (strlen($dictionary['BaseResponse']['ErrMsg']) > 0) {
 
-            echo $dictionary['BaseResponse']['ErrMsg'].'<br/>';
+            echo $dictionary['BaseResponse']['ErrMsg'] . '<br/>';
 
         }
 
@@ -369,33 +370,33 @@ class WeChat
 
     }
 
-    public function deleteMember($chatRoomName,$usernames)
+    public function deleteMember($chatRoomName, $usernames)
     {
 
-        $url = sprintf(self::$base_uri.'/webwxupdatechatroom?fun=delmember&pass_ticket=%s',self::$pass_ticket);
+        $url = sprintf(self::$base_uri . '/webwxupdatechatroom?fun=delmember&pass_ticket=%s', self::$pass_ticket);
 
         $params = array(
-            'BaseRequest'=>self::$baseRequest,
-            'ChatRoomName'=>$chatRoomName,
-            'DelMemberList'=>join(',',$usernames)
+            'BaseRequest' => self::$baseRequest,
+            'ChatRoomName' => $chatRoomName,
+            'DelMemberList' => join(',', $usernames)
         );
 
         $responseData = Requests::post($url,
             array('ContentType' => 'application/json; charset=UTF-8'),
             json_encode($params),
-            array('cookies'=>self::$cookie)
+            array('cookies' => self::$cookie)
         );
 
-        $dictionary = json_decode($responseData->body,1);
+        $dictionary = json_decode($responseData->body, 1);
 
-        if(strlen($dictionary['BaseResponse']['ErrMsg']) > 0){
+        if (strlen($dictionary['BaseResponse']['ErrMsg']) > 0) {
 
-            echo $dictionary['BaseResponse']['ErrMsg'].'<br/>';
+            echo $dictionary['BaseResponse']['ErrMsg'] . '<br/>';
 
         }
 
         $ret = $dictionary['BaseResponse']['Ret'];
-        if($ret != 0){
+        if ($ret != 0) {
 
             return fasle;
 
@@ -406,6 +407,6 @@ class WeChat
 
     public function getDeleteList()
     {
-        print_r(self::$deleteList);
+        return self::$deleteList;
     }
 }

@@ -20,7 +20,7 @@ echo $weChat->getQRCode();
 
 echo '<br/>';
 
-sleep(20);
+sleep(2);
 
 while (true) {
 
@@ -93,9 +93,36 @@ for ($i = 0 ;$i < $groupNumber ;$i++){
 
 }
 
-echo '<br/>当前删除你的好友列表如下:<br/>';
+echo '<br/>---------------:当前删除你的好友列表如下:---------------<br/>';
 
-$weChat->getDeleteList();
+$deleteList = $weChat->getDeleteList();
+
+$resultNames = '';
+
+if(empty($deleteList)){
+
+    echo '没有任何人删除了你.';
+    return;
+}
+
+foreach ($memberList as $key => $member){
+
+    if(in_array($deleteList,$member['UserName'])){
+        $resultNames .= '|'.$member['NickName'];
+    }
+
+}
+
+
+echo $resultNames.'<br/>';
+/**
+ * for Member in MemberList:
+    if Member['UserName'] in result:
+    NickName = Member['NickName']
+    if Member['RemarkName'] != '':
+    NickName += '(%s)' % Member['RemarkName']
+    resultNames.append(NickName.encode('utf-8'))
+ */
 
 
 

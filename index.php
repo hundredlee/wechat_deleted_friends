@@ -115,14 +115,6 @@ foreach ($memberList as $key => $member){
 
 
 echo $resultNames.'<br/>';
-/**
- * for Member in MemberList:
-    if Member['UserName'] in result:
-    NickName = Member['NickName']
-    if Member['RemarkName'] != '':
-    NickName += '(%s)' % Member['RemarkName']
-    resultNames.append(NickName.encode('utf-8'))
- */
 
 
 

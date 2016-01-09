@@ -22,6 +22,7 @@ echo '<br/>';
 
 sleep(2);
 
+
 while (true) {
 
     if ($weChat->waitForLogin() == 200) {
@@ -31,6 +32,7 @@ while (true) {
     }
 
 }
+
 
 echo '<br/>';
 
@@ -87,9 +89,13 @@ for ($i = 0 ;$i < $groupNumber ;$i++){
 
         $weChat->addMember($chatRoomName,$usernames);
 
+        sleep(2);
+
     }
 
     $weChat->deleteMember($chatRoomName,$usernames);
+
+    sleep(2);
 
 }
 
@@ -107,7 +113,7 @@ if(empty($deleteList)){
 
 foreach ($memberList as $key => $member){
 
-    if(in_array($deleteList,$member['UserName'])){
+    if(in_array($member['UserName'],$deleteList)){
         $resultNames .= '|'.$member['NickName'];
     }
 
